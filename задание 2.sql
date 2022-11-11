@@ -1,16 +1,16 @@
 /*
-Домашнее задание по курсу MS SQL Server Developer в OTUS.
-Занятие "02 - Оператор SELECT и простые фильтры, JOIN".
+Р”РѕРјР°С€РЅРµРµ Р·Р°РґР°РЅРёРµ РїРѕ РєСѓСЂСЃСѓ MS SQL Server Developer РІ OTUS.
+Р—Р°РЅСЏС‚РёРµ "02 - РћРїРµСЂР°С‚РѕСЂ SELECT Рё РїСЂРѕСЃС‚С‹Рµ С„РёР»СЊС‚СЂС‹, JOIN".
 */
 -- ---------------------------------------------------------------------------
--- Задание - написать выборки для получения указанных ниже данных.
+-- Р—Р°РґР°РЅРёРµ - РЅР°РїРёСЃР°С‚СЊ РІС‹Р±РѕСЂРєРё РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СѓРєР°Р·Р°РЅРЅС‹С… РЅРёР¶Рµ РґР°РЅРЅС‹С….
 -- ---------------------------------------------------------------------------
 USE WideWorldImporters
 
 /*
-1. Все товары, в названии которых есть "urgent" или название начинается с "Animal".
-Вывести: ИД товара (StockItemID), наименование товара (StockItemName).
-Таблицы: Warehouse.StockItems.
+1. Р’СЃРµ С‚РѕРІР°СЂС‹, РІ РЅР°Р·РІР°РЅРёРё РєРѕС‚РѕСЂС‹С… РµСЃС‚СЊ "urgent" РёР»Рё РЅР°Р·РІР°РЅРёРµ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ "Animal".
+Р’С‹РІРµСЃС‚Рё: РР” С‚РѕРІР°СЂР° (StockItemID), РЅР°РёРјРµРЅРѕРІР°РЅРёРµ С‚РѕРІР°СЂР° (StockItemName).
+РўР°Р±Р»РёС†С‹: Warehouse.StockItems.
 */
 SELECT StockItemID
 	,StockItemName
@@ -20,11 +20,11 @@ WHERE StockItemName LIKE '%urgent%'
 GO
 
 /*
-2. Поставщиков (Suppliers), у которых не было сделано ни одного заказа (PurchaseOrders).
-Сделать через JOIN, с подзапросом задание принято не будет.
-Вывести: ИД поставщика (SupplierID), наименование поставщика (SupplierName).
-Таблицы: Purchasing.Suppliers, Purchasing.PurchaseOrders.
-По каким колонкам делать JOIN подумайте самостоятельно.
+2. РџРѕСЃС‚Р°РІС‰РёРєРѕРІ (Suppliers), Сѓ РєРѕС‚РѕСЂС‹С… РЅРµ Р±С‹Р»Рѕ СЃРґРµР»Р°РЅРѕ РЅРё РѕРґРЅРѕРіРѕ Р·Р°РєР°Р·Р° (PurchaseOrders).
+РЎРґРµР»Р°С‚СЊ С‡РµСЂРµР· JOIN, СЃ РїРѕРґР·Р°РїСЂРѕСЃРѕРј Р·Р°РґР°РЅРёРµ РїСЂРёРЅСЏС‚Рѕ РЅРµ Р±СѓРґРµС‚.
+Р’С‹РІРµСЃС‚Рё: РР” РїРѕСЃС‚Р°РІС‰РёРєР° (SupplierID), РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РїРѕСЃС‚Р°РІС‰РёРєР° (SupplierName).
+РўР°Р±Р»РёС†С‹: Purchasing.Suppliers, Purchasing.PurchaseOrders.
+РџРѕ РєР°РєРёРј РєРѕР»РѕРЅРєР°Рј РґРµР»Р°С‚СЊ JOIN РїРѕРґСѓРјР°Р№С‚Рµ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ.
 */
 SELECT ps.SupplierID
 	,ps.SupplierName
@@ -33,36 +33,51 @@ LEFT OUTER JOIN Purchasing.PurchaseOrders ppo ON ps.SupplierID = ppo.SupplierID
 WHERE ppo.PurchaseOrderID IS NULL
 
 /*
-3. Заказы (Orders) с ценой товара (UnitPrice) более 100$ 
-либо количеством единиц (Quantity) товара более 20 штук
-и присутствующей датой комплектации всего заказа (PickingCompletedWhen).
-Вывести:
+3. Р—Р°РєР°Р·С‹ (Orders) СЃ С†РµРЅРѕР№ С‚РѕРІР°СЂР° (UnitPrice) Р±РѕР»РµРµ 100$ 
+Р»РёР±Рѕ РєРѕР»РёС‡РµСЃС‚РІРѕРј РµРґРёРЅРёС† (Quantity) С‚РѕРІР°СЂР° Р±РѕР»РµРµ 20 С€С‚СѓРє
+Рё РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‰РµР№ РґР°С‚РѕР№ РєРѕРјРїР»РµРєС‚Р°С†РёРё РІСЃРµРіРѕ Р·Р°РєР°Р·Р° (PickingCompletedWhen).
+Р’С‹РІРµСЃС‚Рё:
 * OrderID
-* дату заказа (OrderDate) в формате ДД.ММ.ГГГГ
-* название месяца, в котором был сделан заказ
-* номер квартала, в котором был сделан заказ
-* треть года, к которой относится дата заказа (каждая треть по 4 месяца)
-* имя заказчика (Customer)
-Добавьте вариант этого запроса с постраничной выборкой,
-пропустив первую 1000 и отобразив следующие 100 записей.
+* РґР°С‚Сѓ Р·Р°РєР°Р·Р° (OrderDate) РІ С„РѕСЂРјР°С‚Рµ Р”Р”.РњРњ.Р“Р“Р“Р“
+* РЅР°Р·РІР°РЅРёРµ РјРµСЃСЏС†Р°, РІ РєРѕС‚РѕСЂРѕРј Р±С‹Р» СЃРґРµР»Р°РЅ Р·Р°РєР°Р·
+* РЅРѕРјРµСЂ РєРІР°СЂС‚Р°Р»Р°, РІ РєРѕС‚РѕСЂРѕРј Р±С‹Р» СЃРґРµР»Р°РЅ Р·Р°РєР°Р·
+* С‚СЂРµС‚СЊ РіРѕРґР°, Рє РєРѕС‚РѕСЂРѕР№ РѕС‚РЅРѕСЃРёС‚СЃСЏ РґР°С‚Р° Р·Р°РєР°Р·Р° (РєР°Р¶РґР°СЏ С‚СЂРµС‚СЊ РїРѕ 4 РјРµСЃСЏС†Р°)
+* РёРјСЏ Р·Р°РєР°Р·С‡РёРєР° (Customer)
+Р”РѕР±Р°РІСЊС‚Рµ РІР°СЂРёР°РЅС‚ СЌС‚РѕРіРѕ Р·Р°РїСЂРѕСЃР° СЃ РїРѕСЃС‚СЂР°РЅРёС‡РЅРѕР№ РІС‹Р±РѕСЂРєРѕР№,
+РїСЂРѕРїСѓСЃС‚РёРІ РїРµСЂРІСѓСЋ 1000 Рё РѕС‚РѕР±СЂР°Р·РёРІ СЃР»РµРґСѓСЋС‰РёРµ 100 Р·Р°РїРёСЃРµР№.
 
-Сортировка должна быть по номеру квартала, трети года, дате заказа (везде по возрастанию).
+РЎРѕСЂС‚РёСЂРѕРІРєР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РїРѕ РЅРѕРјРµСЂСѓ РєРІР°СЂС‚Р°Р»Р°, С‚СЂРµС‚Рё РіРѕРґР°, РґР°С‚Рµ Р·Р°РєР°Р·Р° (РІРµР·РґРµ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ).
 
-Таблицы: Sales.Orders, Sales.OrderLines, Sales.Customers.
+РўР°Р±Р»РёС†С‹: Sales.Orders, Sales.OrderLines, Sales.Customers.
 */
 SELECT DISTINCT so.OrderID
-	,CONVERT(VARCHAR, OrderDate, 104) AS [дата заказа]
-	,datename(month, sct.TransactionDate) AS [название месяца]
-	,datepart(quarter, sct.TransactionDate) AS [номер квартала]
+	,CONVERT(VARCHAR, OrderDate, 104) AS [РґР°С‚Р° Р·Р°РєР°Р·Р°]
+	,datename(month, sct.TransactionDate) AS [РЅР°Р·РІР°РЅРёРµ РјРµСЃСЏС†Р°]
+	,datepart(quarter, sct.TransactionDate) AS [РЅРѕРјРµСЂ РєРІР°СЂС‚Р°Р»Р°]
 	,CASE 
-		WHEN MONTH(sct.TransactionDate) IN (1,2,3,4)
+		WHEN MONTH(sct.TransactionDate) IN (
+				1
+				,2
+				,3
+				,4
+				)
 			THEN 1
-		WHEN MONTH(sct.TransactionDate) IN (5,6,7,8)
+		WHEN MONTH(sct.TransactionDate) IN (
+				5
+				,6
+				,7
+				,8
+				)
 			THEN 2
-		WHEN MONTH(sct.TransactionDate) IN (9,10,11,12)
+		WHEN MONTH(sct.TransactionDate) IN (
+				9
+				,10
+				,11
+				,12
+				)
 			THEN 3
-		END AS [треть года]
-	,c.CustomerName AS [имя заказчика]
+		END AS [С‚СЂРµС‚СЊ РіРѕРґР°]
+	,c.CustomerName AS [РёРјСЏ Р·Р°РєР°Р·С‡РёРєР°]
 FROM Sales.Orders so
 INNER JOIN Sales.Invoices si ON so.OrderID = si.OrderID
 INNER JOIN Sales.CustomerTransactions sct ON si.InvoiceID = sct.InvoiceID
@@ -84,25 +99,40 @@ WHERE (
 		)
 	AND sct.TransactionDate IS NOT NULL
 	AND so.PickingCompletedWhen IS NOT NULL
-ORDER BY [номер квартала]
-	,[треть года]
-	,[дата заказа] ASC
+ORDER BY [РЅРѕРјРµСЂ РєРІР°СЂС‚Р°Р»Р°]
+	,[С‚СЂРµС‚СЊ РіРѕРґР°]
+	,[РґР°С‚Р° Р·Р°РєР°Р·Р°] ASC
 GO
 
--- Вариант с постраничной выборкой
+-- Р’Р°СЂРёР°РЅС‚ СЃ РїРѕСЃС‚СЂР°РЅРёС‡РЅРѕР№ РІС‹Р±РѕСЂРєРѕР№
 SELECT DISTINCT so.OrderID
-	,CONVERT(VARCHAR, OrderDate, 104) AS [дата заказа]
-	,datename(month, sct.TransactionDate) AS [название месяца]
-	,datepart(quarter, sct.TransactionDate) AS [номер квартала]
+	,CONVERT(VARCHAR, OrderDate, 104) AS [РґР°С‚Р° Р·Р°РєР°Р·Р°]
+	,datename(month, sct.TransactionDate) AS [РЅР°Р·РІР°РЅРёРµ РјРµСЃСЏС†Р°]
+	,datepart(quarter, sct.TransactionDate) AS [РЅРѕРјРµСЂ РєРІР°СЂС‚Р°Р»Р°]
 	,CASE 
-		WHEN MONTH(sct.TransactionDate) IN (1,2,3,4)
+		WHEN MONTH(sct.TransactionDate) IN (
+				1
+				,2
+				,3
+				,4
+				)
 			THEN 1
-		WHEN MONTH(sct.TransactionDate) IN (5,6,7,8)
+		WHEN MONTH(sct.TransactionDate) IN (
+				5
+				,6
+				,7
+				,8
+				)
 			THEN 2
-		WHEN MONTH(sct.TransactionDate) IN (9,10,11,12)
+		WHEN MONTH(sct.TransactionDate) IN (
+				9
+				,10
+				,11
+				,12
+				)
 			THEN 3
-		END AS [треть года]
-	,c.CustomerName AS [имя заказчика]
+		END AS [С‚СЂРµС‚СЊ РіРѕРґР°]
+	,c.CustomerName AS [РёРјСЏ Р·Р°РєР°Р·С‡РёРєР°]
 FROM Sales.Orders so
 INNER JOIN Sales.Invoices si ON so.OrderID = si.OrderID
 INNER JOIN Sales.CustomerTransactions sct ON si.InvoiceID = sct.InvoiceID
@@ -124,31 +154,30 @@ WHERE (
 		)
 	AND sct.TransactionDate IS NOT NULL
 	AND so.PickingCompletedWhen IS NOT NULL
-ORDER BY [номер квартала]
-	,[треть года]
-	,[дата заказа] ASC 
-	
-OFFSET 1000 ROWS
+ORDER BY [РЅРѕРјРµСЂ РєРІР°СЂС‚Р°Р»Р°]
+	,[С‚СЂРµС‚СЊ РіРѕРґР°]
+	,[РґР°С‚Р° Р·Р°РєР°Р·Р°] ASC OFFSET 1000 ROWS
+
 FETCH NEXT 100 ROWS ONLY
 GO
 
 /*
-4. Заказы поставщикам (Purchasing.Suppliers),
-которые должны быть исполнены (ExpectedDeliveryDate) в январе 2013 года
-с доставкой "Air Freight" или "Refrigerated Air Freight" (DeliveryMethodName)
-и которые исполнены (IsOrderFinalized).
-Вывести:
-* способ доставки (DeliveryMethodName)
-* дата доставки (ExpectedDeliveryDate)
-* имя поставщика
-* имя контактного лица принимавшего заказ (ContactPerson)
+4. Р—Р°РєР°Р·С‹ РїРѕСЃС‚Р°РІС‰РёРєР°Рј (Purchasing.Suppliers),
+РєРѕС‚РѕСЂС‹Рµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РёСЃРїРѕР»РЅРµРЅС‹ (ExpectedDeliveryDate) РІ СЏРЅРІР°СЂРµ 2013 РіРѕРґР°
+СЃ РґРѕСЃС‚Р°РІРєРѕР№ "Air Freight" РёР»Рё "Refrigerated Air Freight" (DeliveryMethodName)
+Рё РєРѕС‚РѕСЂС‹Рµ РёСЃРїРѕР»РЅРµРЅС‹ (IsOrderFinalized).
+Р’С‹РІРµСЃС‚Рё:
+* СЃРїРѕСЃРѕР± РґРѕСЃС‚Р°РІРєРё (DeliveryMethodName)
+* РґР°С‚Р° РґРѕСЃС‚Р°РІРєРё (ExpectedDeliveryDate)
+* РёРјСЏ РїРѕСЃС‚Р°РІС‰РёРєР°
+* РёРјСЏ РєРѕРЅС‚Р°РєС‚РЅРѕРіРѕ Р»РёС†Р° РїСЂРёРЅРёРјР°РІС€РµРіРѕ Р·Р°РєР°Р· (ContactPerson)
 
-Таблицы: Purchasing.Suppliers, Purchasing.PurchaseOrders, Application.DeliveryMethods, Application.People.
+РўР°Р±Р»РёС†С‹: Purchasing.Suppliers, Purchasing.PurchaseOrders, Application.DeliveryMethods, Application.People.
 */
-SELECT adm.DeliveryMethodName AS [способ доставки]
-	,ppo.ExpectedDeliveryDate AS [дата доставки]
-	,ps.SupplierName AS [имя поставщика]
-	,ap.FullName AS [имя контактного лица принимавшего заказ]
+SELECT adm.DeliveryMethodName AS [СЃРїРѕСЃРѕР± РґРѕСЃС‚Р°РІРєРё]
+	,ppo.ExpectedDeliveryDate AS [РґР°С‚Р° РґРѕСЃС‚Р°РІРєРё]
+	,ps.SupplierName AS [РёРјСЏ РїРѕСЃС‚Р°РІС‰РёРєР°]
+	,ap.FullName AS [РёРјСЏ РєРѕРЅС‚Р°РєС‚РЅРѕРіРѕ Р»РёС†Р° РїСЂРёРЅРёРјР°РІС€РµРіРѕ Р·Р°РєР°Р·]
 FROM Purchasing.PurchaseOrders ppo
 INNER JOIN Application.DeliveryMethods adm ON ppo.DeliveryMethodID = adm.DeliveryMethodID
 LEFT OUTER JOIN Purchasing.Suppliers ps ON ppo.SupplierID = ps.SupplierID
@@ -162,9 +191,9 @@ WHERE ppo.ExpectedDeliveryDate BETWEEN '20130101'
 		)
 
 /*
-5. Десять последних продаж (по дате продажи) с именем клиента и именем сотрудника,
-который оформил заказ (SalespersonPerson).
-Сделать без подзапросов.
+5. Р”РµСЃСЏС‚СЊ РїРѕСЃР»РµРґРЅРёС… РїСЂРѕРґР°Р¶ (РїРѕ РґР°С‚Рµ РїСЂРѕРґР°Р¶Рё) СЃ РёРјРµРЅРµРј РєР»РёРµРЅС‚Р° Рё РёРјРµРЅРµРј СЃРѕС‚СЂСѓРґРЅРёРєР°,
+РєРѕС‚РѕСЂС‹Р№ РѕС„РѕСЂРјРёР» Р·Р°РєР°Р· (SalespersonPerson).
+РЎРґРµР»Р°С‚СЊ Р±РµР· РїРѕРґР·Р°РїСЂРѕСЃРѕРІ.
 */
 SELECT TOP 10 sc.CustomerName AS [Customer Name]
 	,ap.FullName AS [Salesperson Name]
@@ -175,9 +204,9 @@ ORDER BY so.OrderID DESC
 GO
 
 /*
-6. Все ид и имена клиентов и их контактные телефоны,
-которые покупали товар "Chocolate frogs 250g".
-Имя товара смотреть в таблице Warehouse.StockItems.
+6. Р’СЃРµ РёРґ Рё РёРјРµРЅР° РєР»РёРµРЅС‚РѕРІ Рё РёС… РєРѕРЅС‚Р°РєС‚РЅС‹Рµ С‚РµР»РµС„РѕРЅС‹,
+РєРѕС‚РѕСЂС‹Рµ РїРѕРєСѓРїР°Р»Рё С‚РѕРІР°СЂ "Chocolate frogs 250g".
+РРјСЏ С‚РѕРІР°СЂР° СЃРјРѕС‚СЂРµС‚СЊ РІ С‚Р°Р±Р»РёС†Рµ Warehouse.StockItems.
 */
 SELECT DISTINCT sc.CustomerID
 	,sc.CustomerName
