@@ -1,93 +1,89 @@
 /*
-Домашнее задание по курсу MS SQL Server Developer в OTUS.
-Занятие "02 - Оператор SELECT и простые фильтры, GROUP BY, HAVING".
+Р”РѕРјР°С€РЅРµРµ Р·Р°РґР°РЅРёРµ РїРѕ РєСѓСЂСЃСѓ MS SQL Server Developer РІ OTUS.
+Р—Р°РЅСЏС‚РёРµ "02 - РћРїРµСЂР°С‚РѕСЂ SELECT Рё РїСЂРѕСЃС‚С‹Рµ С„РёР»СЊС‚СЂС‹, GROUP BY, HAVING".
 */
 -- ---------------------------------------------------------------------------
--- Задание - написать выборки для получения указанных ниже данных.
+-- Р—Р°РґР°РЅРёРµ - РЅР°РїРёСЃР°С‚СЊ РІС‹Р±РѕСЂРєРё РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СѓРєР°Р·Р°РЅРЅС‹С… РЅРёР¶Рµ РґР°РЅРЅС‹С….
 -- ---------------------------------------------------------------------------
-
 USE WideWorldImporters
 
 /*
-1. Посчитать среднюю цену товара, общую сумму продажи по месяцам.
-Вывести:
-* Год продажи (например, 2015)
-* Месяц продажи (например, 4)
-* Средняя цена за месяц по всем товарам
-* Общая сумма продаж за месяц
+1. РџРѕСЃС‡РёС‚Р°С‚СЊ СЃСЂРµРґРЅСЋСЋ С†РµРЅСѓ С‚РѕРІР°СЂР°, РѕР±С‰СѓСЋ СЃСѓРјРјСѓ РїСЂРѕРґР°Р¶Рё РїРѕ РјРµСЃСЏС†Р°Рј.
+Р’С‹РІРµСЃС‚Рё:
+* Р“РѕРґ РїСЂРѕРґР°Р¶Рё (РЅР°РїСЂРёРјРµСЂ, 2015)
+* РњРµСЃСЏС† РїСЂРѕРґР°Р¶Рё (РЅР°РїСЂРёРјРµСЂ, 4)
+* РЎСЂРµРґРЅСЏСЏ С†РµРЅР° Р·Р° РјРµСЃСЏС† РїРѕ РІСЃРµРј С‚РѕРІР°СЂР°Рј
+* РћР±С‰Р°СЏ СЃСѓРјРјР° РїСЂРѕРґР°Р¶ Р·Р° РјРµСЃСЏС†
 
-Продажи смотреть в таблице Sales.Invoices и связанных таблицах.
+РџСЂРѕРґР°Р¶Рё СЃРјРѕС‚СЂРµС‚СЊ РІ С‚Р°Р±Р»РёС†Рµ Sales.Invoices Рё СЃРІСЏР·Р°РЅРЅС‹С… С‚Р°Р±Р»РёС†Р°С….
 */
-SELECT 
-	DATEPART(YEAR,ct.TransactionDate) AS YearTransactionDate,
-	DATEPART(MONTH,ct.TransactionDate) AS MonthTransactionDate,
-	AVG(ol.UnitPrice) AS AVG_Sales,
-	SUM(ct.TransactionAmount) AS SUM_Sales
-FROM
-	Sales.Invoices i
-	INNER JOIN Sales.CustomerTransactions ct ON i.InvoiceID = ct.InvoiceID
-	INNER JOIN Sales.OrderLines ol ON i.OrderID = ol.OrderID
-GROUP BY DATEPART(YEAR,ct.TransactionDate),
-	 DATEPART(MONTH,ct.TransactionDate) 
-ORDER BY 1,2
+SELECT DATEPART(YEAR, ct.TransactionDate) AS YearTransactionDate
+	,DATEPART(MONTH, ct.TransactionDate) AS MonthTransactionDate
+	,AVG(ol.UnitPrice) AS AVG_Sales
+	,SUM(ct.TransactionAmount) AS SUM_Sales
+FROM Sales.Invoices i
+INNER JOIN Sales.CustomerTransactions ct ON i.InvoiceID = ct.InvoiceID
+INNER JOIN Sales.OrderLines ol ON i.OrderID = ol.OrderID
+GROUP BY DATEPART(YEAR, ct.TransactionDate)
+	,DATEPART(MONTH, ct.TransactionDate)
+ORDER BY 1
+	,2
 GO
+
 /*
-2. Отобразить все месяцы, где общая сумма продаж превысила 4 600 000
+2. РћС‚РѕР±СЂР°Р·РёС‚СЊ РІСЃРµ РјРµСЃСЏС†С‹, РіРґРµ РѕР±С‰Р°СЏ СЃСѓРјРјР° РїСЂРѕРґР°Р¶ РїСЂРµРІС‹СЃРёР»Р° 4 600 000
 
-Вывести:
-* Год продажи (например, 2015)
-* Месяц продажи (например, 4)
-* Общая сумма продаж
+Р’С‹РІРµСЃС‚Рё:
+* Р“РѕРґ РїСЂРѕРґР°Р¶Рё (РЅР°РїСЂРёРјРµСЂ, 2015)
+* РњРµСЃСЏС† РїСЂРѕРґР°Р¶Рё (РЅР°РїСЂРёРјРµСЂ, 4)
+* РћР±С‰Р°СЏ СЃСѓРјРјР° РїСЂРѕРґР°Р¶
 
-Продажи смотреть в таблице Sales.Invoices и связанных таблицах.
+РџСЂРѕРґР°Р¶Рё СЃРјРѕС‚СЂРµС‚СЊ РІ С‚Р°Р±Р»РёС†Рµ Sales.Invoices Рё СЃРІСЏР·Р°РЅРЅС‹С… С‚Р°Р±Р»РёС†Р°С….
 */
-
-SELECT 
-	DATEPART(YEAR,ct.TransactionDate) AS YearTransactionDate,
-	DATEPART(MONTH,ct.TransactionDate) AS MonthTransactionDate, 
-	SUM(ct.TransactionAmount) AS SUM_Sales
-FROM
-	Sales.Invoices i
-	INNER JOIN Sales.CustomerTransactions ct ON i.InvoiceID = ct.InvoiceID
-	INNER JOIN Sales.OrderLines ol ON i.OrderID = ol.OrderID
-GROUP BY DATEPART(YEAR,ct.TransactionDate),
-	 DATEPART(MONTH,ct.TransactionDate) 
+SELECT DATEPART(YEAR, ct.TransactionDate) AS YearTransactionDate
+	,DATEPART(MONTH, ct.TransactionDate) AS MonthTransactionDate
+	,SUM(ct.TransactionAmount) AS SUM_Sales
+FROM Sales.Invoices i
+INNER JOIN Sales.CustomerTransactions ct ON i.InvoiceID = ct.InvoiceID
+INNER JOIN Sales.OrderLines ol ON i.OrderID = ol.OrderID
+GROUP BY DATEPART(YEAR, ct.TransactionDate)
+	,DATEPART(MONTH, ct.TransactionDate)
 HAVING SUM(ct.TransactionAmount) > 4600000
-ORDER BY 1,2
+ORDER BY 1
+	,2
 GO
+
 /*
-3. Вывести сумму продаж, дату первой продажи
-и количество проданного по месяцам, по товарам,
-продажи которых менее 50 ед в месяц.
-Группировка должна быть по году,  месяцу, товару.
+3. Р’С‹РІРµСЃС‚Рё СЃСѓРјРјСѓ РїСЂРѕРґР°Р¶, РґР°С‚Сѓ РїРµСЂРІРѕР№ РїСЂРѕРґР°Р¶Рё
+Рё РєРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕРґР°РЅРЅРѕРіРѕ РїРѕ РјРµСЃСЏС†Р°Рј, РїРѕ С‚РѕРІР°СЂР°Рј,
+РїСЂРѕРґР°Р¶Рё РєРѕС‚РѕСЂС‹С… РјРµРЅРµРµ 50 РµРґ РІ РјРµСЃСЏС†.
+Р“СЂСѓРїРїРёСЂРѕРІРєР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РїРѕ РіРѕРґСѓ,  РјРµСЃСЏС†Сѓ, С‚РѕРІР°СЂСѓ.
 
-Вывести:
-* Год продажи
-* Месяц продажи
-* Наименование товара
-* Сумма продаж
-* Дата первой продажи
-* Количество проданного
+Р’С‹РІРµСЃС‚Рё:
+* Р“РѕРґ РїСЂРѕРґР°Р¶Рё
+* РњРµСЃСЏС† РїСЂРѕРґР°Р¶Рё
+* РќР°РёРјРµРЅРѕРІР°РЅРёРµ С‚РѕРІР°СЂР°
+* РЎСѓРјРјР° РїСЂРѕРґР°Р¶
+* Р”Р°С‚Р° РїРµСЂРІРѕР№ РїСЂРѕРґР°Р¶Рё
+* РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕРґР°РЅРЅРѕРіРѕ
 
-Продажи смотреть в таблице Sales.Invoices и связанных таблицах.
+РџСЂРѕРґР°Р¶Рё СЃРјРѕС‚СЂРµС‚СЊ РІ С‚Р°Р±Р»РёС†Рµ Sales.Invoices Рё СЃРІСЏР·Р°РЅРЅС‹С… С‚Р°Р±Р»РёС†Р°С….
 */
-
-SELECT
-	DATEPART(YEAR,ct.TransactionDate) AS YearTransactionDate,
-	DATEPART(MONTH,ct.TransactionDate) AS MonthTransactionDate, 
-	si.StockItemName
+SELECT DATEPART(YEAR, ct.TransactionDate) AS YearTransactionDate
+	,DATEPART(MONTH, ct.TransactionDate) AS MonthTransactionDate
+	,si.StockItemName
 	,SUM(ct.TransactionAmount) AS SUM_Sales
 	,MIN(ct.TransactionDate) AS FirstTransactionDate
 	,COUNT(il.Quantity) AS COUNT_Quantity
-FROM
-	Sales.InvoiceLines il
-	INNER JOIN Warehouse.StockItems si ON il.StockItemID = si.StockItemID
-	INNER JOIN Sales.CustomerTransactions ct ON il.InvoiceID = ct.InvoiceID
-GROUP BY si.StockItemName,
-	DATEPART(YEAR,ct.TransactionDate),
-	DATEPART(MONTH,ct.TransactionDate) 	
+FROM Sales.InvoiceLines il
+INNER JOIN Warehouse.StockItems si ON il.StockItemID = si.StockItemID
+INNER JOIN Sales.CustomerTransactions ct ON il.InvoiceID = ct.InvoiceID
+GROUP BY si.StockItemName
+	,DATEPART(YEAR, ct.TransactionDate)
+	,DATEPART(MONTH, ct.TransactionDate)
 HAVING COUNT(il.Quantity) < 50
-ORDER BY 1,2
+ORDER BY 1
+	,2
 GO
 
- 
+
