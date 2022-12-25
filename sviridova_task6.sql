@@ -36,14 +36,15 @@ InvoiceMonth | Peeples Valley, AZ | Medicine Lodge, KS | Gasport, NY | Sylvanite
 01.02.2013   |      7             |        3           |      4      |      2        |     1
 -------------+--------------------+--------------------+-------------+--------------+------------
 */
+
 SELECT pvt.*
 FROM (
-	SELECT [OrderDate]
+	SELECT [OrderDate] =FORMAT(CAST(CAST(YEAR([OrderDate]) AS VARCHAR) + '-' + CAST(MONTH([OrderDate]) AS VARCHAR )+ '-01' AS DATE), 'd', 'de-de')
 		,[CustomerName] = replace(replace([CustomerName], left([CustomerName], charindex('(', [CustomerName], 0)), ''), ')', '')
 		,[OrderID]
 	FROM [Sales].[Customers] c
 	CROSS APPLY (
-		SELECT [OrderDate] = CONVERT(VARCHAR, OrderDate, 104)
+		SELECT [OrderDate] 
 			,o.[OrderID]
 		FROM [Sales].[Orders] o
 		INNER JOIN [Sales].[Invoices] i ON o.[OrderID] = i.[OrderID]
@@ -63,7 +64,8 @@ PIVOT(count([OrderID]) FOR [CustomerName] IN (
 			,[Gasport, NY]
 			,[Sylvanite, MT]
 			,[Jessie, ND]
-			)) AS pvt
+			)
+			) AS pvt
 ORDER BY CAST(OrderDate AS DATE) ASC
 
 /*
