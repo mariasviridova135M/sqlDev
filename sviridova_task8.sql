@@ -1,25 +1,25 @@
 /*
-Домашнее задание по курсу MS SQL Server Developer в OTUS.
+Р”РѕРјР°С€РЅРµРµ Р·Р°РґР°РЅРёРµ РїРѕ РєСѓСЂСЃСѓ MS SQL Server Developer РІ OTUS.
 
-Занятие "10 - Операторы изменения данных".
+Р—Р°РЅСЏС‚РёРµ "10 - РћРїРµСЂР°С‚РѕСЂС‹ РёР·РјРµРЅРµРЅРёСЏ РґР°РЅРЅС‹С…".
 
-Задания выполняются с использованием базы данных WideWorldImporters.
+Р—Р°РґР°РЅРёСЏ РІС‹РїРѕР»РЅСЏСЋС‚СЃСЏ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Р±Р°Р·С‹ РґР°РЅРЅС‹С… WideWorldImporters.
 
-Бэкап БД можно скачать отсюда:
+Р‘СЌРєР°Рї Р‘Р” РјРѕР¶РЅРѕ СЃРєР°С‡Р°С‚СЊ РѕС‚СЃСЋРґР°:
 https://github.com/Microsoft/sql-server-samples/releases/tag/wide-world-importers-v1.0
-Нужен WideWorldImporters-Full.bak
+РќСѓР¶РµРЅ WideWorldImporters-Full.bak
 
-Описание WideWorldImporters от Microsoft:
+РћРїРёСЃР°РЅРёРµ WideWorldImporters РѕС‚ Microsoft:
 * https://docs.microsoft.com/ru-ru/sql/samples/wide-world-importers-what-is
 * https://docs.microsoft.com/ru-ru/sql/samples/wide-world-importers-oltp-database-catalog
 */
 -- ---------------------------------------------------------------------------
--- Задание - написать выборки для получения указанных ниже данных.
+-- Р—Р°РґР°РЅРёРµ - РЅР°РїРёСЃР°С‚СЊ РІС‹Р±РѕСЂРєРё РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СѓРєР°Р·Р°РЅРЅС‹С… РЅРёР¶Рµ РґР°РЅРЅС‹С….
 -- ---------------------------------------------------------------------------
 use WideWorldImporters
 
 /*
-1. Довставлять в базу пять записей используя insert в таблицу Customers или Suppliers 
+1. Р”РѕРІСЃС‚Р°РІР»СЏС‚СЊ РІ Р±Р°Р·Сѓ РїСЏС‚СЊ Р·Р°РїРёСЃРµР№ РёСЃРїРѕР»СЊР·СѓСЏ insert РІ С‚Р°Р±Р»РёС†Сѓ Customers РёР»Рё Suppliers 
 */
 declare @tempCustomers table (tid int);
 
@@ -229,7 +229,7 @@ from Sales.Customers
 order by CustomerID desc
 
 /*
-2. Удалите одну запись из Customers, которая была вами добавлена
+2. РЈРґР°Р»РёС‚Рµ РѕРґРЅСѓ Р·Р°РїРёСЃСЊ РёР· Customers, РєРѕС‚РѕСЂР°СЏ Р±С‹Р»Р° РІР°РјРё РґРѕР±Р°РІР»РµРЅР°
 */
 delete
 from Sales.Customers
@@ -244,7 +244,7 @@ from Sales.Customers
 order by CustomerID desc
 
 /*
-3. Изменить одну запись, из добавленных через UPDATE
+3. РР·РјРµРЅРёС‚СЊ РѕРґРЅСѓ Р·Р°РїРёСЃСЊ, РёР· РґРѕР±Р°РІР»РµРЅРЅС‹С… С‡РµСЂРµР· UPDATE
 */
 update sc
 set CustomerName = 'Customer Name ' + CAST(sc.CustomerID as varchar)
@@ -259,7 +259,7 @@ from Sales.Customers
 order by CustomerID desc
 
 /*
-4. Написать MERGE, который вставит вставит запись в клиенты, если ее там нет, и изменит если она уже есть
+4. РќР°РїРёСЃР°С‚СЊ MERGE, РєРѕС‚РѕСЂС‹Р№ РІСЃС‚Р°РІРёС‚ РІСЃС‚Р°РІРёС‚ Р·Р°РїРёСЃСЊ РІ РєР»РёРµРЅС‚С‹, РµСЃР»Рё РµРµ С‚Р°Рј РЅРµС‚, Рё РёР·РјРµРЅРёС‚ РµСЃР»Рё РѕРЅР° СѓР¶Рµ РµСЃС‚СЊ
 */
 declare @tempSalesCustomers table (
 	DeletedID int,
@@ -363,7 +363,7 @@ order by CustomerID desc
 --FROM Sales.Customers
 --ORDER BY CustomerID DESC)
 /*
-5. Напишите запрос, который выгрузит данные через bcp out и загрузить через bulk insert
+5. РќР°РїРёС€РёС‚Рµ Р·Р°РїСЂРѕСЃ, РєРѕС‚РѕСЂС‹Р№ РІС‹РіСЂСѓР·РёС‚ РґР°РЅРЅС‹Рµ С‡РµСЂРµР· bcp out Рё Р·Р°РіСЂСѓР·РёС‚СЊ С‡РµСЂРµР· bulk insert
 */
 exec sp_configure 'show advanced options',
 	1;
@@ -388,13 +388,13 @@ exec master..xp_cmdshell 'bcp "[WideWorldImporters].[Sales].[Customers]" out  "C
 ==========================================================================================================================
 
 NULL
-Начато копирование...
+РќР°С‡Р°С‚Рѕ РєРѕРїРёСЂРѕРІР°РЅРёРµ...
 SQLState = S1000, NativeError = 0
 Error = [Microsoft][ODBC Driver 13 for SQL Server]Warning: BCP import with a format file will convert empty strings in delimited columns to NULL.
 NULL
-Скопировано строк: 667.
-Размер сетевого пакета (в байтах): 4096
-Время (мс) Всего     : 47     В среднем : (14191.49 строк в секунду.)
+РЎРєРѕРїРёСЂРѕРІР°РЅРѕ СЃС‚СЂРѕРє: 667.
+Р Р°Р·РјРµСЂ СЃРµС‚РµРІРѕРіРѕ РїР°РєРµС‚Р° (РІ Р±Р°Р№С‚Р°С…): 4096
+Р’СЂРµРјСЏ (РјСЃ) Р’СЃРµРіРѕ     : 47     Р’ СЃСЂРµРґРЅРµРј : (14191.49 СЃС‚СЂРѕРє РІ СЃРµРєСѓРЅРґСѓ.)
 NULL
 */
 if OBJECT_ID('WideWorldImporters.Sales.NewCustomers') is not null
