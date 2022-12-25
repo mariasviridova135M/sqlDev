@@ -38,50 +38,21 @@ InvoiceMonth | Aakriti Byrraju    | Abel Spirlea       | Abel Tatarescu | ... (Ð
 01.02.2013   |      7             |        3           |      4         | ...
 -------------+--------------------+--------------------+----------------+----------------------
 */
-SELECT pvt.*
-FROM (
-	SELECT [OrderDate]
-		,[CustomerName] = replace(replace([CustomerName], left([CustomerName], charindex('(', [CustomerName], 0)), ''), ')', '')
-		,[OrderID]
-	FROM [Sales].[Customers] c
-	CROSS APPLY (
-		SELECT [OrderDate] = CONVERT(VARCHAR, OrderDate, 104)
-			,o.[OrderID]
-		FROM [Sales].[Orders] o
-		INNER JOIN [Sales].[Invoices] i ON o.[OrderID] = i.[OrderID]
-		WHERE EXISTS (
-				SELECT ct.[CustomerTransactionID]
-				FROM [Sales].[CustomerTransactions] ct
-				WHERE ct.[InvoiceID] = i.[InvoiceID]
-				)
-			AND c.[CustomerID] = o.[CustomerID]
-		) oc
-	WHERE c.[CustomerID] BETWEEN 2
-			AND 6
-	) AS sel
-PIVOT(count([OrderID]) FOR [CustomerName] IN (
-			[Peeples Valley, AZ]
-			,[Medicine Lodge, KS]
-			,[Gasport, NY]
-			,[Sylvanite, MT]
-			,[Jessie, ND]
-			)) AS pvt
-ORDER BY CAST(OrderDate AS DATE) ASC
 
------------------------------------------------------------------
 DECLARE @cols AS NVARCHAR(MAX) = '';
 DECLARE @query AS NVARCHAR(MAX) = '';
 
-SELECT @cols = @cols + + QUOTENAME(replace(replace([CustomerName], left([CustomerName], charindex('(', [CustomerName], 0)), ''), ')', '')) + ','
-FROM [Sales].[Customers] c
-WHERE c.[CustomerID] BETWEEN 2
-		AND 6
+SELECT @cols = @cols + + [CustomerName]
+FROM (SELECT DISTINCT [CustomerName] = QUOTENAME(replace(replace([CustomerName], left([CustomerName], charindex('(', [CustomerName], 0)), ''), ')', '')) + ','
+FROM [Sales].[Customers]
+) c 
 
 SELECT @cols = substring(@cols, 0, len(@cols))
 
+
 SET @query = 'SELECT pvt.*
 FROM (
-	SELECT [OrderDate]
+	SELECT [OrderDate] = FORMAT(CAST(CAST(YEAR([OrderDate]) AS VARCHAR) + ''-'' + CAST(MONTH([OrderDate]) AS VARCHAR )+ ''-01'' AS DATE), ''d'', ''de-de'')
 		,[CustomerName] = replace(replace([CustomerName], left([CustomerName], charindex(''('', [CustomerName], 0)), ''''), '')'', '''')
 		,[OrderID]
 	FROM [Sales].[Customers] c
@@ -97,8 +68,6 @@ FROM (
 				)
 			AND c.[CustomerID] = o.[CustomerID]
 		) oc
-	WHERE c.[CustomerID] BETWEEN 2
-			AND 6
 ) sel
 pivot 
 (
@@ -107,3 +76,4 @@ pivot
 ORDER BY CAST(OrderDate AS DATE) ASC'
 
 EXECUTE (@query)
+
