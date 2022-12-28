@@ -407,12 +407,12 @@ REFERENCES [dbo].[ReglamentTypes] ([tid])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
+ALTER TABLE [dbo].[Reglaments] CHECK CONSTRAINT [FK_Reglaments_ReglamentTypes]
+GO
 ALTER TABLE [dbo].[Reglaments]  WITH CHECK ADD  CONSTRAINT [FK_Reglaments_DataBases] FOREIGN KEY([tid_DataBase])
 REFERENCES [dbo].[DataBases] ([tid])
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
 GO
-ALTER TABLE [dbo].[Reglaments] CHECK CONSTRAINT [FK_Reglaments_ReglamentTypes]
+ALTER TABLE [dbo].[Reglaments] CHECK CONSTRAINT [FK_Reglaments_DataBases]
 GO
 ALTER TABLE [dbo].[UsedSpace]  WITH CHECK ADD  CONSTRAINT [FK_UsedSpace_DataBases] FOREIGN KEY([tid_DataBase])
 REFERENCES [dbo].[DataBases] ([tid])
