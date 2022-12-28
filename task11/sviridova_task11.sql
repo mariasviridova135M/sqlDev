@@ -318,8 +318,8 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Index [ix_HistoryReglaments_Name]    Script Date: 28.12.2022 11:02:14 ******/
-CREATE NONCLUSTERED INDEX [ix_HistoryReglaments_Name] ON [dbo].[HistoryReglaments]
+/****** Object:  Index [ix_HistoryReglaments_Status]    Script Date: 28.12.2022 11:02:14 ******/
+CREATE NONCLUSTERED INDEX [ix_HistoryReglaments_Status] ON [dbo].[HistoryReglaments]
 (
 	[Status] ASC
 )
