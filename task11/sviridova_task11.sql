@@ -425,7 +425,7 @@ ALTER TABLE [dbo].[DataBases]  WITH CHECK ADD  CONSTRAINT [check_DataBaseName] C
 GO
 ALTER TABLE [dbo].[DataBases] CHECK CONSTRAINT [check_DataBaseName]
 GO
-ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAdminsEmail] CHECK  (([LastName] like '%@%'))
+ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAdminsEmail] CHECK  (([Email] like '%@%'))
 GO
 ALTER TABLE [dbo].[DataBaseAdmins] CHECK CONSTRAINT [check_DataBaseAdminsEmail]
 GO
