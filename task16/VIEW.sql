@@ -1,9 +1,9 @@
  -----------------------------------------------------------------------------------------------
  CREATE VIEW view_HistoryReglaments
  AS 
- SELECT r.Name as [Название],  DATEDIFF( HOUR, hr.StartDate, hr.FinishDate) as [Длительность], 
- IIF( Status = 0 or Status IS NULL, 'Не успешно',  'Успех') as [Статус],
- hr.RecordDate as [Дата записи]
+ SELECT r.Name as [РќР°Р·РІР°РЅРёРµ],  DATEDIFF( HOUR, hr.StartDate, hr.FinishDate) as [Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ], 
+ IIF( Status = 0 or Status IS NULL, 'РќРµ СѓСЃРїРµС€РЅРѕ',  'РЈСЃРїРµС…') as [РЎС‚Р°С‚СѓСЃ],
+ hr.RecordDate as [Р”Р°С‚Р° Р·Р°РїРёСЃРё]
  FROM Reglaments R
  JOIN HistoryReglaments HR ON HR.tid_Reglament = R.tid
   GO
@@ -12,11 +12,11 @@
    -----------------------------------------------------------------------------------------------
  CREATE VIEW view_FullnessDisks
  AS 
- SELECT CAST(d.Name  + ' ' + d.Path as varchar) as [Название],
- fd.TotalVolume as [Объем],
- fd.UsedVolume as [Использовано, ГБ],
-100 - ((fd.UsedVolume/fd.TotalVolume)*100)  [Свободно, %],
- fd.RecordDate as [Дата]
+ SELECT CAST(d.Name  + ' ' + d.Path as varchar) as [РќР°Р·РІР°РЅРёРµ],
+ fd.TotalVolume as [РћР±СЉРµРј],
+ fd.UsedVolume as [РСЃРїРѕР»СЊР·РѕРІР°РЅРѕ, Р“Р‘],
+100 - ((fd.UsedVolume/fd.TotalVolume)*100)  [РЎРІРѕР±РѕРґРЅРѕ, %],
+ fd.RecordDate as [Р”Р°С‚Р°]
  FROM FullnessDisks fd
  JOIN Disks d on d.tid = fd.tid_disk
   GO
@@ -26,16 +26,16 @@
  CREATE VIEW view_UsedSpace
  AS 
  SELECT
-dbt.Name as [Тип],
-db.Name as [Название],
-d.Path  as [Диск],
-us.UsedDataVolume as [Данные, ГБ],
-(us.UsedDataVolume/US.DataVolume) *100 [Заполненность данными, %],
-(1 - us.UsedDataVolume/US.DataVolume) *100 [Свободно для данных, %],
-us.UsedLogVolume  as [Лог, ГБ],
-(us.UsedLogVolume/US.LogVolume) *100 [Заполненность лога, %],
-(1 - us.UsedLogVolume/US.LogVolume) *100 [Свободно для лога, %],
-us.RecordDate as [Дата]
+dbt.Name as [РўРёРї],
+db.Name as [РќР°Р·РІР°РЅРёРµ],
+d.Path  as [Р”РёСЃРє],
+us.UsedDataVolume as [Р”Р°РЅРЅС‹Рµ, Р“Р‘],
+(us.UsedDataVolume/US.DataVolume) *100 [Р—Р°РїРѕР»РЅРµРЅРЅРѕСЃС‚СЊ РґР°РЅРЅС‹РјРё, %],
+(1 - us.UsedDataVolume/US.DataVolume) *100 [РЎРІРѕР±РѕРґРЅРѕ РґР»СЏ РґР°РЅРЅС‹С…, %],
+us.UsedLogVolume  as [Р›РѕРі, Р“Р‘],
+(us.UsedLogVolume/US.LogVolume) *100 [Р—Р°РїРѕР»РЅРµРЅРЅРѕСЃС‚СЊ Р»РѕРіР°, %],
+(1 - us.UsedLogVolume/US.LogVolume) *100 [РЎРІРѕР±РѕРґРЅРѕ РґР»СЏ Р»РѕРіР°, %],
+us.RecordDate as [Р”Р°С‚Р°]
  FROM UsedSpace us
  LEFT JOIN DataBases db on db.tid = us.tid_DataBase
  LEFT JOIN DataBaseTypes dbt on dbt.tid = db.tid_DataBasesType
@@ -47,11 +47,11 @@ us.RecordDate as [Дата]
  -----------------------------------------------------------------------------------------------
 CREATE VIEW view_HelpTableFullnessDisks
 AS 
-SELECT DISTINCT d.Name as [Диск],
-100 - PercentAvailableVolumeDisk as [Заполненность диска, %],
-100 - PercentAvailableVolumeData [Заполненность данными, %], 
-PercentAvailableVolumeLog [Заполненность лог, %], 
-ht.RecordDate [Дата]
+SELECT DISTINCT d.Name as [Р”РёСЃРє],
+100 - PercentAvailableVolumeDisk as [Р—Р°РїРѕР»РЅРµРЅРЅРѕСЃС‚СЊ РґРёСЃРєР°, %],
+100 - PercentAvailableVolumeData [Р—Р°РїРѕР»РЅРµРЅРЅРѕСЃС‚СЊ РґР°РЅРЅС‹РјРё, %], 
+PercentAvailableVolumeLog [Р—Р°РїРѕР»РЅРµРЅРЅРѕСЃС‚СЊ Р»РѕРі, %], 
+ht.RecordDate [Р”Р°С‚Р°]
 FROM HelpTable ht
 join FullnessDisks fd on ht.tid_FullnessDisk = fd.tid
 join Disks d on d.tid = fd.tid_disk 
