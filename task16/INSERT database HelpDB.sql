@@ -2,16 +2,16 @@
 ---ReglamentTypes
 -------------------------------------------------------------------------------------------------
 insert into ReglamentTypes (Name)
-values ('Ежедневное'),
-	('Еженедельное'),
-	('Шринк');
+values ('Р•Р¶РµРґРЅРµРІРЅРѕРµ'),
+	('Р•Р¶РµРЅРµРґРµР»СЊРЅРѕРµ'),
+	('РЁСЂРёРЅРє');
 -------------------------------------------------------------------------------------------------
 ---DataBaseTypes
 -------------------------------------------------------------------------------------------------
 insert into DataBaseTypes (Name)
-values ('Тестовая'),
-	('Рабочая'),
-	('Для битья');
+values ('РўРµСЃС‚РѕРІР°СЏ'),
+	('Р Р°Р±РѕС‡Р°СЏ'),
+	('Р”Р»СЏ Р±РёС‚СЊСЏ');
 -------------------------------------------------------------------------------------------------
 ---Disks
 -------------------------------------------------------------------------------------------------
@@ -21,22 +21,22 @@ insert into Disks (
 	Description
 	)
 values (
-	'Системный',
+	'РЎРёСЃС‚РµРјРЅС‹Р№',
 	'C:\',
 	'SYSTEM'
 	),
 	(
-	'Основной',
+	'РћСЃРЅРѕРІРЅРѕР№',
 	'D:\',
 	'BASE'
 	),
 	(
-	'Тестовый',
+	'РўРµСЃС‚РѕРІС‹Р№',
 	'A:\',
 	'TEST'
 	),
 	(
-	'Бэкап',
+	'Р‘СЌРєР°Рї',
 	'B:\',
 	'BACKUP'
 	);
@@ -50,39 +50,39 @@ insert into DataBaseAdmins (
 	Email
 	)
 values (
-	'Смирнов',
-	'Иван',
-	'Иванович',
+	'РЎРјРёСЂРЅРѕРІ',
+	'РРІР°РЅ',
+	'РРІР°РЅРѕРІРёС‡',
 	'smirnov@mail.ru'
 	),
 	(
-	'Иванова',
-	'Варвара',
-	'Петровна',
+	'РРІР°РЅРѕРІР°',
+	'Р’Р°СЂРІР°СЂР°',
+	'РџРµС‚СЂРѕРІРЅР°',
 	'ivanov@mail.ru'
 	),
 	(
-	'Кирьянов',
-	'Петр',
-	'Семенович',
+	'РљРёСЂСЊСЏРЅРѕРІ',
+	'РџРµС‚СЂ',
+	'РЎРµРјРµРЅРѕРІРёС‡',
 	'perchik98@yandex.ru'
 	),
 	(
-	'Петров',
-	'Роман',
-	'Романович',
+	'РџРµС‚СЂРѕРІ',
+	'Р РѕРјР°РЅ',
+	'Р РѕРјР°РЅРѕРІРёС‡',
 	'petrov@mail.ru'
 	),
 	(
-	'Романов',
-	'Семен',
-	'Владимирович',
+	'Р РѕРјР°РЅРѕРІ',
+	'РЎРµРјРµРЅ',
+	'Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡',
 	'romanov@mail.ru'
 	),
 	(
-	'Демидов',
-	'Григорий',
-	'Николаевич',
+	'Р”РµРјРёРґРѕРІ',
+	'Р“СЂРёРіРѕСЂРёР№',
+	'РќРёРєРѕР»Р°РµРІРёС‡',
 	'demid@google.com'
 	);
 -------------------------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -173,7 +173,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Тестовая%'
+		where Name like '%РўРµСЃС‚РѕРІР°СЏ%'
 		),
 	(
 		select tid
@@ -186,7 +186,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Тестовая%'
+		where Name like '%РўРµСЃС‚РѕРІР°СЏ%'
 		),
 	(
 		select tid
@@ -199,7 +199,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Тестовая%'
+		where Name like '%РўРµСЃС‚РѕРІР°СЏ%'
 		),
 	(
 		select tid
@@ -212,7 +212,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Тестовая%'
+		where Name like '%РўРµСЃС‚РѕРІР°СЏ%'
 		),
 	(
 		select tid
@@ -225,7 +225,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Тестовая%'
+		where Name like '%РўРµСЃС‚РѕРІР°СЏ%'
 		),
 	(
 		select tid
@@ -238,7 +238,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Тестовая%'
+		where Name like '%РўРµСЃС‚РѕРІР°СЏ%'
 		),
 	(
 		select tid
@@ -251,7 +251,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -264,7 +264,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -277,7 +277,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -290,7 +290,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -303,7 +303,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -316,7 +316,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -329,7 +329,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -342,7 +342,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -355,7 +355,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -368,7 +368,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -381,7 +381,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%Рабочая%'
+		where Name like '%Р Р°Р±РѕС‡Р°СЏ%'
 		),
 	(
 		select tid
@@ -394,7 +394,7 @@ values (
 	(
 		select tid
 		from DataBaseTypes
-		where Name like '%битья%'
+		where Name like '%Р±РёС‚СЊСЏ%'
 		),
 	(
 		select tid
@@ -453,7 +453,7 @@ begin
 				R.tid in (
 					select TID
 					from Reglaments
-					where Name like '%_SPB - Еже%'
+					where Name like '%_SPB - Р•Р¶Рµ%'
 					)
 				), 0, 1)
 	from Reglaments r
