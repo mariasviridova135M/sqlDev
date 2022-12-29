@@ -421,6 +421,10 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[UsedSpace] CHECK CONSTRAINT [FK_UsedSpace_DataBases]
 GO
+ALTER TABLE [dbo].[DataBases]  WITH CHECK ADD  CONSTRAINT [check_DataBaseName] CHECK  (([Name] like '%[^ .а-Я]%'))
+GO
+ALTER TABLE [dbo].[DataBases] CHECK CONSTRAINT [check_DataBaseName]
+GO
 ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAdminsEmail] CHECK  (([LastName] like '%@%'))
 GO
 ALTER TABLE [dbo].[DataBaseAdmins] CHECK CONSTRAINT [check_DataBaseAdminsEmail]
