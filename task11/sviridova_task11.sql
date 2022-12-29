@@ -425,11 +425,11 @@ ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAd
 GO
 ALTER TABLE [dbo].[DataBaseAdmins] CHECK CONSTRAINT [check_DataBaseAdminsEmail]
 GO
-ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAdminsFirstName] CHECK  (([FirstName] like '%[^ .а-Я]%'))
+ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAdminsFirstName] CHECK  (([FirstName] like '%[ .а-Я]%'))
 GO
 ALTER TABLE [dbo].[DataBaseAdmins] CHECK CONSTRAINT [check_DataBaseAdminsFirstName]
 GO
-ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAdminsLastName] CHECK  (([LastName] like '%[^ .а-Я]%'))
+ALTER TABLE [dbo].[DataBaseAdmins]  WITH CHECK ADD  CONSTRAINT [check_DataBaseAdminsLastName] CHECK  (([LastName] like '%[ .а-Я]%'))
 GO
 ALTER TABLE [dbo].[DataBaseAdmins] CHECK CONSTRAINT [check_DataBaseAdminsLastName]
 GO
@@ -445,13 +445,13 @@ ALTER TABLE [dbo].[HistoryReglaments]  WITH CHECK ADD  CONSTRAINT [check_History
 GO
 ALTER TABLE [dbo].[HistoryReglaments] CHECK CONSTRAINT [check_HistoryReglamentsDate]
 GO
-ALTER TABLE [dbo].[ReglamentTypes]  WITH CHECK ADD  CONSTRAINT [check_ReglamentTypesName] CHECK  (([Name] like '%[^ .а-Я]%'))
+ALTER TABLE [dbo].[ReglamentTypes]  WITH CHECK ADD  CONSTRAINT [check_ReglamentTypesName] CHECK  (([Name] like '%[ .а-Я]%'))
 GO
 ALTER TABLE [dbo].[ReglamentTypes] CHECK CONSTRAINT [check_ReglamentTypesName]
 GO
-ALTER TABLE [dbo].[ReglamentTypes]  WITH CHECK ADD  CONSTRAINT [checkName] CHECK  (([Name] like '%[^ .а-Я]%'))
+ALTER TABLE [dbo].[Reglaments]  WITH CHECK ADD  CONSTRAINT [checkName] CHECK  (([Name] like '%[ .а-Я]%'))
 GO
-ALTER TABLE [dbo].[ReglamentTypes] CHECK CONSTRAINT [checkName]
+ALTER TABLE [dbo].[Reglaments] CHECK CONSTRAINT [checkName]
 GO
 ALTER TABLE [dbo].[UsedSpace]  WITH CHECK ADD  CONSTRAINT [check_UsedSpaceVolumeData] CHECK  (([DataVolume]<[TotalVolume]))
 GO
