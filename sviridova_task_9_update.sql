@@ -1,40 +1,40 @@
 /*
-Домашнее задание по курсу MS SQL Server Developer в OTUS.
+Р”РѕРјР°С€РЅРµРµ Р·Р°РґР°РЅРёРµ РїРѕ РєСѓСЂСЃСѓ MS SQL Server Developer РІ OTUS.
 
-Занятие "08 - Выборки из XML и JSON полей".
+Р—Р°РЅСЏС‚РёРµ "08 - Р’С‹Р±РѕСЂРєРё РёР· XML Рё JSON РїРѕР»РµР№".
 
-Задания выполняются с использованием базы данных WideWorldImporters.
+Р—Р°РґР°РЅРёСЏ РІС‹РїРѕР»РЅСЏСЋС‚СЃСЏ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Р±Р°Р·С‹ РґР°РЅРЅС‹С… WideWorldImporters.
 
-Бэкап БД можно скачать отсюда:
+Р‘СЌРєР°Рї Р‘Р” РјРѕР¶РЅРѕ СЃРєР°С‡Р°С‚СЊ РѕС‚СЃСЋРґР°:
 https://github.com/Microsoft/sql-server-samples/releases/tag/wide-world-importers-v1.0
-Нужен WideWorldImporters-Full.bak
+РќСѓР¶РµРЅ WideWorldImporters-Full.bak
 
-Описание WideWorldImporters от Microsoft:
+РћРїРёСЃР°РЅРёРµ WideWorldImporters РѕС‚ Microsoft:
 * https://docs.microsoft.com/ru-ru/sql/samples/wide-world-importers-what-is
 * https://docs.microsoft.com/ru-ru/sql/samples/wide-world-importers-oltp-database-catalog
 */
 -- ---------------------------------------------------------------------------
--- Задание - написать выборки для получения указанных ниже данных.
+-- Р—Р°РґР°РЅРёРµ - РЅР°РїРёСЃР°С‚СЊ РІС‹Р±РѕСЂРєРё РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СѓРєР°Р·Р°РЅРЅС‹С… РЅРёР¶Рµ РґР°РЅРЅС‹С….
 -- ---------------------------------------------------------------------------
 use WideWorldImporters
 
 /*
-Примечания к заданиям 1, 2:
-* Если с выгрузкой в файл будут проблемы, то можно сделать просто SELECT c результатом в виде XML. 
-* Если у вас в проекте предусмотрен экспорт/импорт в XML, то можете взять свой XML и свои таблицы.
-* Если с этим XML вам будет скучно, то можете взять любые открытые данные и импортировать их в таблицы (например, с https://data.gov.ru).
-* Пример экспорта/импорта в файл https://docs.microsoft.com/en-us/sql/relational-databases/import-export/examples-of-bulk-import-and-export-of-xml-documents-sql-server
+РџСЂРёРјРµС‡Р°РЅРёСЏ Рє Р·Р°РґР°РЅРёСЏРј 1, 2:
+* Р•СЃР»Рё СЃ РІС‹РіСЂСѓР·РєРѕР№ РІ С„Р°Р№Р» Р±СѓРґСѓС‚ РїСЂРѕР±Р»РµРјС‹, С‚Рѕ РјРѕР¶РЅРѕ СЃРґРµР»Р°С‚СЊ РїСЂРѕСЃС‚Рѕ SELECT c СЂРµР·СѓР»СЊС‚Р°С‚РѕРј РІ РІРёРґРµ XML. 
+* Р•СЃР»Рё Сѓ РІР°СЃ РІ РїСЂРѕРµРєС‚Рµ РїСЂРµРґСѓСЃРјРѕС‚СЂРµРЅ СЌРєСЃРїРѕСЂС‚/РёРјРїРѕСЂС‚ РІ XML, С‚Рѕ РјРѕР¶РµС‚Рµ РІР·СЏС‚СЊ СЃРІРѕР№ XML Рё СЃРІРѕРё С‚Р°Р±Р»РёС†С‹.
+* Р•СЃР»Рё СЃ СЌС‚РёРј XML РІР°Рј Р±СѓРґРµС‚ СЃРєСѓС‡РЅРѕ, С‚Рѕ РјРѕР¶РµС‚Рµ РІР·СЏС‚СЊ Р»СЋР±С‹Рµ РѕС‚РєСЂС‹С‚С‹Рµ РґР°РЅРЅС‹Рµ Рё РёРјРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ РёС… РІ С‚Р°Р±Р»РёС†С‹ (РЅР°РїСЂРёРјРµСЂ, СЃ https://data.gov.ru).
+* РџСЂРёРјРµСЂ СЌРєСЃРїРѕСЂС‚Р°/РёРјРїРѕСЂС‚Р° РІ С„Р°Р№Р» https://docs.microsoft.com/en-us/sql/relational-databases/import-export/examples-of-bulk-import-and-export-of-xml-documents-sql-server
 */
 /*
-1. В личном кабинете есть файл StockItems.xml.
-Это данные из таблицы Warehouse.StockItems.
-Преобразовать эти данные в плоскую таблицу с полями, аналогичными Warehouse.StockItems.
-Поля: StockItemName, ItemID, UnitPackageID, OuterPackageID, QuantityPerOuter, TypicalWeightPerUnit, LeadTimeDays, IsChillerStock, TaxRate, UnitPrice 
+1. Р’ Р»РёС‡РЅРѕРј РєР°Р±РёРЅРµС‚Рµ РµСЃС‚СЊ С„Р°Р№Р» StockItems.xml.
+Р­С‚Рѕ РґР°РЅРЅС‹Рµ РёР· С‚Р°Р±Р»РёС†С‹ Warehouse.StockItems.
+РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ СЌС‚Рё РґР°РЅРЅС‹Рµ РІ РїР»РѕСЃРєСѓСЋ С‚Р°Р±Р»РёС†Сѓ СЃ РїРѕР»СЏРјРё, Р°РЅР°Р»РѕРіРёС‡РЅС‹РјРё Warehouse.StockItems.
+РџРѕР»СЏ: StockItemName, ItemID, UnitPackageID, OuterPackageID, QuantityPerOuter, TypicalWeightPerUnit, LeadTimeDays, IsChillerStock, TaxRate, UnitPrice 
 
-Загрузить эти данные в таблицу Warehouse.StockItems: 
-существующие записи в таблице обновить, отсутствующие добавить (сопоставлять записи по полю StockItemName). 
+Р—Р°РіСЂСѓР·РёС‚СЊ СЌС‚Рё РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Сѓ Warehouse.StockItems: 
+СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ Р·Р°РїРёСЃРё РІ С‚Р°Р±Р»РёС†Рµ РѕР±РЅРѕРІРёС‚СЊ, РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ РґРѕР±Р°РІРёС‚СЊ (СЃРѕРїРѕСЃС‚Р°РІР»СЏС‚СЊ Р·Р°РїРёСЃРё РїРѕ РїРѕР»СЋ StockItemName). 
 ===================================================================================================================
-Сделать два варианта: с помощью OPENXML и через XQuery.
+РЎРґРµР»Р°С‚СЊ РґРІР° РІР°СЂРёР°РЅС‚Р°: СЃ РїРѕРјРѕС‰СЊСЋ OPENXML Рё С‡РµСЂРµР· XQuery.
 ===================================================================================================================
 */
 -- ------------
@@ -55,10 +55,10 @@ create table #tempStockItems (
 	[UnitPrice] decimal(18, 2)
 	)
 
--- Переменная, в которую считаем XML-файл
+-- РџРµСЂРµРјРµРЅРЅР°СЏ, РІ РєРѕС‚РѕСЂСѓСЋ СЃС‡РёС‚Р°РµРј XML-С„Р°Р№Р»
 declare @xmlStockItemsmlDocument xml;
 
--- Считываем XML-файл в переменную
+-- РЎС‡РёС‚С‹РІР°РµРј XML-С„Р°Р№Р» РІ РїРµСЂРµРјРµРЅРЅСѓСЋ
 select @xmlStockItemsmlDocument = BulkColumn
 from OPENROWSET(bulk 'C:\work\StockItems.xml', SINGLE_CLOB) as data;
 
@@ -272,7 +272,7 @@ end catch
 drop table if exists #tempStockItems;
 
 /*
-2. Выгрузить данные из таблицы StockItems в такой же xml-файл, как StockItems.xml
+2. Р’С‹РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· С‚Р°Р±Р»РёС†С‹ StockItems РІ С‚Р°РєРѕР№ Р¶Рµ xml-С„Р°Р№Р», РєР°Рє StockItems.xml
 */
 declare @queryStockItems nvarchar(max) = 'SELECT [@Name] = [StockItemName], [SupplierID],[Package] = (cast((SELECT [UnitPackageID], [OuterPackageID], [QuantityPerOuter], [TypicalWeightPerUnit] FROM [WideWorldImporters].[Warehouse].[StockItems] sip WHERE si.[StockItemID] = sip.[StockItemID] FOR XML PATH ('''''''')) as XML)),[LeadTimeDays],[IsChillerStock], [TaxRate], [UnitPrice] FROM [WideWorldImporters].[Warehouse].[StockItems] si FOR XML PATH (''''Item''''), ROOT (''''StockItems'''')';
 declare @bcp nvarchar(max) = 'EXEC xp_cmdshell ''bcp "' + @queryStockItems + '" queryout "C:\work\NewStockItems.xml" -c -t -T''';
@@ -280,12 +280,12 @@ declare @bcp nvarchar(max) = 'EXEC xp_cmdshell ''bcp "' + @queryStockItems + '" 
 exec sp_executesql @bcp;
 
 /*
-3. В таблице Warehouse.StockItems в колонке CustomFields есть данные в JSON.
-Написать SELECT для вывода:
+3. Р’ С‚Р°Р±Р»РёС†Рµ Warehouse.StockItems РІ РєРѕР»РѕРЅРєРµ CustomFields РµСЃС‚СЊ РґР°РЅРЅС‹Рµ РІ JSON.
+РќР°РїРёСЃР°С‚СЊ SELECT РґР»СЏ РІС‹РІРѕРґР°:
 - StockItemID
 - StockItemName
-- CountryOfManufacture (из CustomFields)
-- FirstTag (из поля CustomFields, первое значение из массива Tags)
+- CountryOfManufacture (РёР· CustomFields)
+- FirstTag (РёР· РїРѕР»СЏ CustomFields, РїРµСЂРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РёР· РјР°СЃСЃРёРІР° Tags)
 */
 select StockItemID,
 	StockItemName,
@@ -296,20 +296,20 @@ select StockItemID,
 from [Warehouse].[StockItems];
 
 /*
-4. Найти в StockItems строки, где есть тэг "Vintage".
-Вывести: 
+4. РќР°Р№С‚Рё РІ StockItems СЃС‚СЂРѕРєРё, РіРґРµ РµСЃС‚СЊ С‚СЌРі "Vintage".
+Р’С‹РІРµСЃС‚Рё: 
 - StockItemID
 - StockItemName
-- (опционально) все теги (из CustomFields) через запятую в одном поле
+- (РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ) РІСЃРµ С‚РµРіРё (РёР· CustomFields) С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ РІ РѕРґРЅРѕРј РїРѕР»Рµ
 
-Тэги искать в поле CustomFields, а не в Tags.
-Запрос написать через функции работы с JSON.
-Для поиска использовать равенство, использовать LIKE запрещено.
+РўСЌРіРё РёСЃРєР°С‚СЊ РІ РїРѕР»Рµ CustomFields, Р° РЅРµ РІ Tags.
+Р—Р°РїСЂРѕСЃ РЅР°РїРёСЃР°С‚СЊ С‡РµСЂРµР· С„СѓРЅРєС†РёРё СЂР°Р±РѕС‚С‹ СЃ JSON.
+Р”Р»СЏ РїРѕРёСЃРєР° РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЂР°РІРµРЅСЃС‚РІРѕ, РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ LIKE Р·Р°РїСЂРµС‰РµРЅРѕ.
 
-Должно быть в таком виде:
+Р”РѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ С‚Р°РєРѕРј РІРёРґРµ:
 ... where ... = 'Vintage'
 
-Так принято не будет:
+РўР°Рє РїСЂРёРЅСЏС‚Рѕ РЅРµ Р±СѓРґРµС‚:
 ... where ... Tags like '%Vintage%'
 ... where ... CustomFields like '%Vintage%' 
 */
