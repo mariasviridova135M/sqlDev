@@ -1,0 +1,6 @@
+E:\РГРТУ\МАГИСТРАТУРА\курсы\task15\ClassLibraryCLRSviridova\bin\Debug\ClassLibraryCLRSviridova.dll
+E:\РГРТУ\МАГИСТРАТУРА\курсы\task15\ClassLibraryCLRSviridova\bin\Debug\ClassLibraryCLRSviridova.pdb
+E:\РГРТУ\МАГИСТРАТУРА\курсы\task15\ClassLibraryCLRSviridova\obj\Debug\ClassLibraryCLRSviridova.csproj.AssemblyReference.cache
+E:\РГРТУ\МАГИСТРАТУРА\курсы\task15\ClassLibraryCLRSviridova\obj\Debug\ClassLibraryCLRSviridova.csproj.CoreCompileInputs.cache
+E:\РГРТУ\МАГИСТРАТУРА\курсы\task15\ClassLibraryCLRSviridova\obj\Debug\ClassLibraryCLRSviridova.dll
+E:\РГРТУ\МАГИСТРАТУРА\курсы\task15\ClassLibraryCLRSviridova\obj\Debug\ClassLibraryCLRSviridova.pdb
