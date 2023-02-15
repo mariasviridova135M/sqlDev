@@ -3,7 +3,7 @@
  AS 
  SELECT r.Name as [Название],  DATEDIFF( HOUR, hr.StartDate, hr.FinishDate) as [Длительность], 
  IIF( Status = 0 or Status IS NULL, 'Не успешно',  'Успех') as [Статус],
- hr.RecordDate as [Дата записи]
+ hr.RecordDate as [Дата]
  FROM Reglaments R
  JOIN HistoryReglaments HR ON HR.tid_Reglament = R.tid
   GO
