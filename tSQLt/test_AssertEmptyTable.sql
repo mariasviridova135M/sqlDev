@@ -16,11 +16,10 @@ BEGIN
 		ParentDirectoryID
 	INTO actual
 	FROM DirTree;
-
-	------Assertion
+ 
 	EXEC tSQLt.AssertEmptyTable 'actual';
 END;
 
 EXEC tSQLt.Run 'testHelpDB.[test Module4]'
 
-EXEC sp_FullBackup --запуск резервного копирования
+EXEC sp_FullBackup --Р·Р°РїСѓСЃРє СЂРµР·РµСЂРІРЅРѕРіРѕ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
