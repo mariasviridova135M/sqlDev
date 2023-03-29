@@ -14,7 +14,7 @@ BEGIN
 			WHERE Email LIKE @email_address
 			) 
 	BEGIN
-		EXEC tSQLt.Fail 'Пользователя нет в базе данных!';--обработка ошибки
+		EXEC tSQLt.Fail 'РџРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµС‚ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…!';--РѕР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РєРё
 	END
 
 	EXEC sp_createemail @day = 7,
@@ -25,13 +25,13 @@ BEGIN
 	EXECUTE AS LOGIN = 'sa'
 
 	EXEC msdb.dbo.sp_send_dbmail
-		-- Созданный нами профиль администратора почтовых рассылок
+		-- РЎРѕР·РґР°РЅРЅС‹Р№ РЅР°РјРё РїСЂРѕС„РёР»СЊ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° РїРѕС‡С‚РѕРІС‹С… СЂР°СЃСЃС‹Р»РѕРє
 		@profile_name = 'sviridova135m@mail.ru',
-		-- Адрес получателя
+		-- РђРґСЂРµСЃ РїРѕР»СѓС‡Р°С‚РµР»СЏ
 		@recipients = @email_address,
-		-- Тема
-		@subject = N'Состояние сервера и базы данных',
-		-- Текст письма
+		-- РўРµРјР°
+		@subject = N'РЎРѕСЃС‚РѕСЏРЅРёРµ СЃРµСЂРІРµСЂР° Рё Р±Р°Р·С‹ РґР°РЅРЅС‹С…',
+		-- РўРµРєСЃС‚ РїРёСЃСЊРјР°
 		@body = @bodyemail,
 		@body_format = 'HTML';
 
@@ -41,22 +41,22 @@ BEGIN
 	FROM msdb.dbo.sysmail_allitems
 	ORDER BY mailitem_id DESC
 
-	SELECT getdate() AS [Дата],
+	SELECT getdate() AS [Р”Р°С‚Р°],
 		@actual AS [@actual]
 
 	EXEC tSQLt.AssertLike '%sent',
-		@actual;--проверка статуса отправки
+		@actual;--РїСЂРѕРІРµСЂРєР° СЃС‚Р°С‚СѓСЃР° РѕС‚РїСЂР°РІРєРё
 END;
 GO
 
-SELECT TOP 3 getdate() AS [Дата],
+SELECT TOP 3 getdate() AS [Р”Р°С‚Р°],
 	sent_status, *
 FROM msdb.dbo.sysmail_allitems
 ORDER BY mailitem_id DESC
 
 EXEC tSQLt.Run 'testHelpDB.[test Module2]'
  
-SELECT TOP 3 getdate() AS [Дата],
+SELECT TOP 3 getdate() AS [Р”Р°С‚Р°],
 	sent_status, *
 FROM msdb.dbo.sysmail_allitems
 ORDER BY mailitem_id DESC
