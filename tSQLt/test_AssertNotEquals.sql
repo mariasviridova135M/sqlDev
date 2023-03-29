@@ -65,21 +65,21 @@ BEGIN
 		@expected AS [@expected]
 
 	EXEC tSQLt.AssertNotEquals '@actual',
-		'@expected';--проверка, что количества в таблице отличаются
+		'@expected';--РїСЂРѕРІРµСЂРєР°, С‡С‚Рѕ РєРѕР»РёС‡РµСЃС‚РІР° РІ С‚Р°Р±Р»РёС†Рµ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ
 
 	IF @actual = @expected
 	BEGIN
-		EXEC tSQLt.Fail 'Данные не добавлены';--обработка ошибки
+		EXEC tSQLt.Fail 'Р”Р°РЅРЅС‹Рµ РЅРµ РґРѕР±Р°РІР»РµРЅС‹';--РѕР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РєРё
 	END
 END;
 GO
 
-SELECT count(*) AS [кол-во строк в HelpTable до теста],
-	getdate() AS [Дата]
+SELECT count(*) AS [РєРѕР»-РІРѕ СЃС‚СЂРѕРє РІ HelpTable РґРѕ С‚РµСЃС‚Р°],
+	getdate() AS [Р”Р°С‚Р°]
 FROM HelpTable
 
 EXEC tSQLt.Run 'testHelpDB.[test Module1]'
 
-SELECT count(*) AS [кол-во строк в HelpTable после теста],
-	getdate() AS [Дата]
+SELECT count(*) AS [РєРѕР»-РІРѕ СЃС‚СЂРѕРє РІ HelpTable РїРѕСЃР»Рµ С‚РµСЃС‚Р°],
+	getdate() AS [Р”Р°С‚Р°]
 FROM HelpTable
