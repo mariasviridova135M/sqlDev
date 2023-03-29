@@ -14,29 +14,29 @@ BEGIN
 		DROP TABLE expected;
 	END
 
-	------Запрос
-	SELECT CAST(d.Name + ' ' + d.Path AS VARCHAR) AS [Название],
-		fd.TotalVolume AS [Объем],
-		fd.UsedVolume AS [Использовано, ГБ],
-		100 - ((fd.UsedVolume / fd.TotalVolume) * 100) [Свободно, %],
-		fd.RecordDate AS [Дата]
+	------Р—Р°РїСЂРѕСЃ
+	SELECT CAST(d.Name + ' ' + d.Path AS VARCHAR) AS [РќР°Р·РІР°РЅРёРµ],
+		fd.TotalVolume AS [РћР±СЉРµРј],
+		fd.UsedVolume AS [РСЃРїРѕР»СЊР·РѕРІР°РЅРѕ, Р“Р‘],
+		100 - ((fd.UsedVolume / fd.TotalVolume) * 100) [РЎРІРѕР±РѕРґРЅРѕ, %],
+		fd.RecordDate AS [Р”Р°С‚Р°]
 	INTO actual
 	FROM FullnessDisks fd
 	JOIN Disks d ON d.tid = fd.tid_disk
 	ORDER BY fd.RecordDate
 
-	------Данные из представления
-	SELECT [Название],
-		[Объем],
-		[Использовано, ГБ],
-		[Свободно, %],
-		[Дата]
+	------Р”Р°РЅРЅС‹Рµ РёР· РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ
+	SELECT [РќР°Р·РІР°РЅРёРµ],
+		[РћР±СЉРµРј],
+		[РСЃРїРѕР»СЊР·РѕРІР°РЅРѕ, Р“Р‘],
+		[РЎРІРѕР±РѕРґРЅРѕ, %],
+		[Р”Р°С‚Р°]
 	INTO expected
 	FROM view_FullnessDisks
-	ORDER BY Дата
+	ORDER BY Р”Р°С‚Р°
 
 	EXEC tSQLt.AssertEqualsTable 'expected',
-		'actual'; --проверка, что данные в представлении равны данным запроса
+		'actual'; --РїСЂРѕРІРµСЂРєР°, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРё СЂР°РІРЅС‹ РґР°РЅРЅС‹Рј Р·Р°РїСЂРѕСЃР°
 END;
 GO
 
